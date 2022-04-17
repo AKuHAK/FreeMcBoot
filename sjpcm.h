@@ -1,21 +1,21 @@
 /*
     -----------------------------------------------------------------------
     sjpcm.h - SjPCM EE-side prototypes. (c) Nick Van Veen (aka Sjeep), 2002
-	-----------------------------------------------------------------------
+    -----------------------------------------------------------------------
 
     This library is free software; you can redistribute it and/or
-	modify it under the terms of the GNU Lesser General Public
-	License as published by the Free Software Foundation; either
-	version 2.1 of the License, or (at your option) any later version.
+    modify it under the terms of the GNU Lesser General Public
+    License as published by the Free Software Foundation; either
+    version 2.1 of the License, or (at your option) any later version.
 
-	This library is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-	Lesser General Public License for more details.
+    This library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Lesser General Public License for more details.
 
-	You should have received a copy of the GNU Lesser General Public
-	License along with this library; if not, write to the Free Software
-	Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+    You should have received a copy of the GNU Lesser General Public
+    License along with this library; if not, write to the Free Software
+    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 */
 
@@ -26,15 +26,15 @@
 extern "C" {
 #endif
 
-#define	SJPCM_IRX		0xB0110C5
-#define SJPCM_PUTS		0x01
-#define	SJPCM_INIT		0x02
-#define SJPCM_PLAY		0x03
-#define SJPCM_PAUSE		0x04
-#define SJPCM_SETVOL	0x05
-#define SJPCM_ENQUEUE	0x06
-#define SJPCM_CLEARBUFF	0x07
-#define SJPCM_QUIT		0x08
+#define SJPCM_IRX       0xB0110C5
+#define SJPCM_PUTS      0x01
+#define SJPCM_INIT      0x02
+#define SJPCM_PLAY      0x03
+#define SJPCM_PAUSE     0x04
+#define SJPCM_SETVOL    0x05
+#define SJPCM_ENQUEUE   0x06
+#define SJPCM_CLEARBUFF 0x07
+#define SJPCM_QUIT      0x08
 #define SJPCM_GETAVAIL  0x09
 #define SJPCM_GETBUFFD  0x10
 

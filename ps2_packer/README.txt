@@ -130,7 +130,7 @@ How it works
 ------------
 
   Usage: ps2-packer [-v] [-b X] [-p X] [-s X] [-a X] [-r X] <in_elf> <out_elf>
-  
+
   Options description:
     -v             verbose mode.
     -b base        sets the loading base of the compressed data. When activated
@@ -149,7 +149,7 @@ How it works
 	     4096 - supra-safe, this is the default alignment of binutils.
 
   Now, you have to understand the mechanisms.
-  
+
   In normal mode, the output elf will contain one program section. Its loading
 location depends on the selected stub. For example, with a stub loading at
 0x1d00000, compressed data will be located *below* that address. I provide
@@ -268,11 +268,11 @@ Where to find
 -------------
 
   The "official" webpage for this tool is at on my personal webspace:
-  
+
     http://www.nobis-crew.org/ps2-packer/
 
   However, you can find the latests CVS changes into ps2dev's CVS:
-  
+
     http://cvs.ps2dev.org/ps2-packer/
 
   For more informations about it, feel free to go on ps2dev's website located

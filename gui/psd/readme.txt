@@ -13,7 +13,7 @@ Thanks to our successful cooperation, in version 1.8 of FMCB installer the gui h
 
 Witam,
 
-Wraz z wersj¹ FMCB 1.8, zmianie uleg³o gui. Zdecydowa³em nie chowaæ go do szuflady, tylko za³¹czyæ do src programu. Jeœli chcesz wykorzystaæ u¿yt¹ w nim grafikê do swojej, niekomercyjnej aplikacji - nie krêpuj siê, wspomnij jedynie o mnie w creditsach.
+Wraz z wersjï¿½ FMCB 1.8, zmianie ulegï¿½o gui. Zdecydowaï¿½em nie chowaï¿½ go do szuflady, tylko zaï¿½ï¿½czyï¿½ do src programu. Jeï¿½li chcesz wykorzystaï¿½ uï¿½ytï¿½ w nim grafikï¿½ do swojej, niekomercyjnej aplikacji - nie krï¿½puj siï¿½, wspomnij jedynie o mnie w creditsach.
 
 
 

@@ -1,14 +1,14 @@
-#  _____     ___ ____ 
+#  _____     ___ ____
 #   ____|   |    ____|      PS2 Open Source Project
-#  |     ___|   |____       
-#  
+#  |     ___|   |____
+#
 #--------------------------------------------------------------------------
 #
-#    Copyright (C) 2008 - Neme & jimmikaelkael (www.psx-scene.com) 
+#    Copyright (C) 2008 - Neme & jimmikaelkael (www.psx-scene.com)
 #
 #    This program is free software; you can redistribute it and/or modify
 #    it under the terms of the Free McBoot License.
-#    
+#
 #    This program is distributed in the hope that it will be useful, but
 #    WITHOUT ANY WARRANTY; without even the implied warranty of
 #    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the Free
@@ -18,17 +18,17 @@
 #    this program; if not, please report at psx-scene :
 #    http://psx-scene.com/forums/freevast/
 #
-#--------------------------------------------------------------------------     
+#--------------------------------------------------------------------------
 #
 # MakeFile
 #
-#--------------------------------------------------------------------------     
+#--------------------------------------------------------------------------
 
 EE_BIN = FREE_MCBOOT.ELF
 EE_BIN_PACKED = packed_FREE_MCBOOT.ELF
 EE_CONFIGURATOR_DIR = FMCB_Configurator
 EE_CONFIGURATOR_BIN = BOOT.ELF
-EE_CONFIGURATOR_BIN_PACKED = FMCB_CFG.ELF 
+EE_CONFIGURATOR_BIN_PACKED = FMCB_CFG.ELF
 EE_BIN_DIR = bin
 
 EE_OBJS = main.o gui.o timer.o pad.o osdname.o mcid.o build_osd.o embed.o mcsp_rpc.o sjpcm_rpc.o
@@ -41,7 +41,7 @@ EE_OBJS += FREEMCB_CNF.o
 EE_OBJS += font_verdana.o
 EE_OBJS += background.o logo.o bar_up.o bar_down.o bar_delimiter.o credits_coded.o credits_gui.o \
 	highlight.o highlight_bw.o
-EE_OBJS += option_install_normal.o option_install_multi.o option_launch_fmcb.o option_fmcb_cfg.o 
+EE_OBJS += option_install_normal.o option_install_multi.o option_launch_fmcb.o option_fmcb_cfg.o
 EE_OBJS += option_format_mc.o option_uninstall.o
 EE_OBJS += icon_ok.o icon_warning.o icon_error.o
 EE_OBJS += clic_snd.o option_snd.o #logo_snd.o
@@ -55,7 +55,7 @@ EE_SRC += FREEMCB_CNF.s
 EE_SRC += font_verdana.s
 EE_SRC += background.s logo.s bar_up.s bar_down.s bar_delimiter.s credits_coded.s credits_gui.s \
 	highlight.s highlight_bw.s
-EE_SRC += option_install_normal.s option_install_multi.s option_launch_fmcb.s option_fmcb_cfg.s 
+EE_SRC += option_install_normal.s option_install_multi.s option_launch_fmcb.s option_fmcb_cfg.s
 EE_SRC += option_format_mc.s option_uninstall.s
 EE_SRC += icon_ok.s icon_warning.s icon_error.s
 EE_SRC += clic_snd.s option_snd.s #logo_snd.s
@@ -76,8 +76,8 @@ ifeq ($(findstring Windows, $(SYSTEM)), Windows)
   # these versions are used for the cygwin toolchain in a dos environment
   # since they need to overwrite the standard dos versions of each command
   MKDIR = cyg-mkdir
-endif	
-	
+endif
+
 all: $(EE_BIN)
 	ps2_packer/ps2_packer $(EE_BIN) $(EE_BIN_PACKED)
 	$(MAKE) -C $(EE_CONFIGURATOR_DIR) all
@@ -87,27 +87,27 @@ all: $(EE_BIN)
 	cp -f --remove-destination $(EE_BIN_PACKED) $(EE_BIN_DIR)/$(EE_BIN)
 	cp -f --remove-destination $(EE_CONFIGURATOR_DIR)/$(EE_CONFIGURATOR_BIN_PACKED) \
 		$(EE_BIN_DIR)/$(EE_CONFIGURATOR_BIN_PACKED)
-	$(MAKE) -C $(EE_CONFIGURATOR_DIR) clean	
-	$(MAKE) -C modules/mcsio2 clean	
-	$(MAKE) -C modules/mcsp clean		
+	$(MAKE) -C $(EE_CONFIGURATOR_DIR) clean
+	$(MAKE) -C modules/mcsio2 clean
+	$(MAKE) -C modules/mcsp clean
 	$(MAKE) -C launcher1 clean
 	$(MAKE) -C launcher2 clean
-	$(MAKE) -C elf_loader clean			
+	$(MAKE) -C elf_loader clean
 	rm -f crt0.o
 	rm -f $(EE_OBJS) $(EE_SRC) *.elf *.ELF
 	rm -f $(EE_CONFIGURATOR_DIR)/$(EE_CONFIGURATOR_BIN_PACKED)
- 
+
 clean:
-	$(MAKE) -C $(EE_CONFIGURATOR_DIR) clean	
-	$(MAKE) -C modules/mcsio2 clean	
-	$(MAKE) -C modules/mcsp clean		
+	$(MAKE) -C $(EE_CONFIGURATOR_DIR) clean
+	$(MAKE) -C modules/mcsio2 clean
+	$(MAKE) -C modules/mcsp clean
 	$(MAKE) -C launcher1 clean
 	$(MAKE) -C launcher2 clean
-	$(MAKE) -C elf_loader clean			
+	$(MAKE) -C elf_loader clean
 	rm -f crt0.o
 	rm -f $(EE_OBJS) $(EE_SRC) *.elf *.ELF
 	rm -f $(EE_CONFIGURATOR_DIR)/$(EE_CONFIGURATOR_BIN_PACKED)
-	rm -Rf $(EE_BIN_DIR)	
+	rm -Rf $(EE_BIN_DIR)
 
 iomanx.s:
 	iomanx.s iomanx_irx
@@ -121,7 +121,7 @@ usbd.s:
 usbhdfsd.s:
 	usb_mass.s usb_mass_irx
 	#bin2s $(PS2DEV)/usbhdfsd/bin/usbhdfsd.irx usbhdfsd.s usb_mass_irx
-	
+
 cdvd.s:
 	bin2s $(PS2DEV)/libcdvd/lib/cdvd.irx cdvd.s cdvd_irx
 
@@ -135,39 +135,39 @@ freesd.s:
 	bin2s $(PS2SDK)/iop/irx/freesd.irx freesd.s freesd_irx
 sjpcm.s:
 	bin2s modules/sjpcm/sjpcm.irx sjpcm.s sjpcm_irx
-		
+
 launcher1.s:
 	$(MAKE) -C launcher1
-	bin2s launcher1/launcher1.o launcher1.s launcher1		
+	bin2s launcher1/launcher1.o launcher1.s launcher1
 launcher2.s:
 	$(MAKE) -C launcher2
 	ps2_packer/ps2_packer launcher2/launcher2.elf launcher2/packed_launcher2.elf
-	bin2s launcher2/packed_launcher2.elf launcher2.s launcher2		
+	bin2s launcher2/packed_launcher2.elf launcher2.s launcher2
 
 FREEMCB_CNF.s:
-	bin2s CNF/FREEMCB.CNF FREEMCB_CNF.s freemcb_cnf		
-		
+	bin2s CNF/FREEMCB.CNF FREEMCB_CNF.s freemcb_cnf
+
 icon_sys.s:
-	bin2s icons/icon.sys icon_sys.s icon_sys		
+	bin2s icons/icon.sys icon_sys.s icon_sys
 icon_icn.s:
-	bin2s icons/FMCB.icn icon_icn.s icon_icn		
+	bin2s icons/FMCB.icn icon_icn.s icon_icn
 boot_icon_sys.s:
-	bin2s boot_icons/icon.sys boot_icon_sys.s boot_icon_sys		
+	bin2s boot_icons/icon.sys boot_icon_sys.s boot_icon_sys
 boot_icon_icn.s:
-	bin2s boot_icons/BOOT.icn boot_icon_icn.s boot_icon_icn		
+	bin2s boot_icons/BOOT.icn boot_icon_icn.s boot_icon_icn
 cnf_icon_sys.s:
-	bin2s cnf_icons/icon.sys cnf_icon_sys.s cnf_icon_sys		
+	bin2s cnf_icons/icon.sys cnf_icon_sys.s cnf_icon_sys
 cnf_icon_icn.s:
-	bin2s cnf_icons/sysconf.icn cnf_icon_icn.s cnf_icon_icn		
+	bin2s cnf_icons/sysconf.icn cnf_icon_icn.s cnf_icon_icn
 apps_icon_sys.s:
-	bin2s apps_icons/icon.sys apps_icon_sys.s apps_icon_sys		
+	bin2s apps_icons/icon.sys apps_icon_sys.s apps_icon_sys
 apps_icon_icn.s:
-	bin2s apps_icons/FMCBapps.icn apps_icon_icn.s apps_icon_icn		
-	
-	
+	bin2s apps_icons/FMCBapps.icn apps_icon_icn.s apps_icon_icn
+
+
 font_verdana.s:
 	bin2s gui/font_verdana.png font_verdana.s font_verdana
- 
+
 background.s:
 	bin2s gui/background.png background.s background
 logo.s:

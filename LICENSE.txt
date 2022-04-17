@@ -1,6 +1,6 @@
  ==========================================================================
-   Copyright (C) 2008 by Neme & jimmikaelkael (www.psx-scene.com)        
-   All Rights Reserved                                                   
+   Copyright (C) 2008 by Neme & jimmikaelkael (www.psx-scene.com)
+   All Rights Reserved
  ==========================================================================
 
                            Free McBoot License
@@ -30,7 +30,7 @@
 
 
  ==========================================================================
-   LICENSE TERMS : 
+   LICENSE TERMS :
  ==========================================================================
 
    Free McBoot is a licensed software. This file contains the text of the

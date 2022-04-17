@@ -1,16 +1,16 @@
 ===========================================================================
-  _____     ___ ____ 
+  _____     ___ ____
    ____|   |    ____|      Free McBoot v1.8b
-  |     ___|   |____       
-  
+  |     ___|   |____
+
 ===========================================================================
 
-  Copyright (C) 2008 - Neme & jimmikaelkael (www.psx-scene.com) 
+  Copyright (C) 2008 - Neme & jimmikaelkael (www.psx-scene.com)
 
 
    This program is free software; you can redistribute it and/or modify
  it under the terms of the Free McBoot License.
-    
+
    This program and any related documentation is provided "as is"
  WITHOUT ANY WARRANTIES, either express or implied, including, but not
  limited to, implied warranties of fitness for a particular purpose. The
@@ -33,7 +33,7 @@
  Usage :
 
  Please read "Noobie Installation Guide" and "Advanced User Guide" (MHTML
- format, made by JNABK) in this folder. 
+ format, made by JNABK) in this folder.
  Check for updated tutorial at http://bootleg.sksapps.com/tutorials/fmcb/
 
  Special Thanks to all involved in many tests :
@@ -41,7 +41,7 @@
  AdvanS3B, katananja, Janaboy (all the tester team and everyone I forget).
 
  See the file CREDITS.txt for full credits list of FMCB program.
-  
+
 ============================ Technical details ============================
 
 Free McBoot v1.8b
@@ -64,7 +64,7 @@ Installer side :
 
 Loader side :
 
- - New elf load method which make it launch faster. 
+ - New elf load method which make it launch faster.
  - New cnf vars to control "X Enter" and "/\ Version" position at osdsys
 main menu screen.
  - Fixed bug about loading elfs from OSDSYS turing into simple FMCB reboot
@@ -90,7 +90,7 @@ Free McBoot v1.7
 Installer side :
 
  - Installer now correct SwapMagic boot path for usb_mass.
- - Added libcdvd modules to install from cd. 
+ - Added libcdvd modules to install from cd.
  - Added a prompt for asking config overwrite.
  - Added a prompt for warning no BOOT.ELF is present in INSTALL folder.
  - Fixed bug for detecting video mode as PAL on Slims 77004.
@@ -98,7 +98,7 @@ Installer side :
 Loader side :
 
  - Fixed bug in loading of usb drivers when mc was in slot 2.
- - Fixed bug in loading OSDSYS on some CC modchipped ps2. 
+ - Fixed bug in loading OSDSYS on some CC modchipped ps2.
  - Fixed bug for detecting video mode as PAL on Slims 77004.
  - Fixed install bug on x0006 PS2.
  - Fixed bug in elf launching from OSDSYS.
@@ -107,12 +107,12 @@ Loader side :
  - Added scrolling menu for OSDSYS.
  - Up to 100 OSDSYS items configureable with the new scroll menu.
  - FastBoot for Ps1, PS2, ESR, dvd video discs.
- - Added configureable OSDSYS video mode (AUTO, PAL or NTSC). 
- - Added hardcoded priority loading of "mass:/FREEMCB.CNF" 
+ - Added configureable OSDSYS video mode (AUTO, PAL or NTSC).
+ - Added hardcoded priority loading of "mass:/FREEMCB.CNF"
  - Skip disc boot option working : Skip disc boot under OSDSYS main menu.
  - "AutoBoot_Disc" option renamed into "FastBoot".
  - Added options to set the new scroll menu.
- 
+
 ---------------------------------------------------------------------------
 
 Free McBoot v1.6
@@ -131,7 +131,7 @@ Loader side :
 USBHDFSD.IRX)
  - 10 configurable items for hacked osdsys.
 
-Coming Soon : 
+Coming Soon :
  - Skip Disc Boot will be working when enabled
  - Direct ESR Launch when DVDV is inserted.
 
@@ -167,7 +167,7 @@ copied as config.
 will be copied as mc0:/BOOT/BOOT.ELF (if the file is not already existing
 on MC).
  - Modified default config, more noob-friendly.
- - Install with Cross-Linking available. 
+ - Install with Cross-Linking available.
  - You can exit installer by loading "mass:/BOOT/BOOT.ELF",
 "mc?:/BOOT/BOOT.ELF", "mc?:/B?DATA-SYSTEM/BOOT.ELF" (passing to another if
 the previous is not existing)

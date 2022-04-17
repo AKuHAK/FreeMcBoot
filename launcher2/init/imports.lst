@@ -1,5 +1,5 @@
 sifcmd_IMPORTS_start
-I_sceSifInitRpc 
+I_sceSifInitRpc
 sifcmd_IMPORTS_end
 
 thbase_IMPORTS_start
@@ -23,8 +23,8 @@ I_lseek
 ioman_IMPORTS_end
 
 sifman_IMPORTS_start
-I_sceSifInit 
-I_sceSifSetDma 
-I_sceSifDmaStat 
+I_sceSifInit
+I_sceSifSetDma
+I_sceSifDmaStat
 sifman_IMPORTS_end
 

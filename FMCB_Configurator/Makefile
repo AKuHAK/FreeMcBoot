@@ -25,9 +25,9 @@ loader.s:
 	bin2s loader/loader.elf loader.s loader_elf
 
 icon_sys.s:
-	bin2s icons/icon.sys icon_sys.s icon_sys		
+	bin2s icons/icon.sys icon_sys.s icon_sys
 icon_icn.s:
-	bin2s icons/FMCB.icn icon_icn.s icon_icn	
+	bin2s icons/FMCB.icn icon_icn.s icon_icn
 
 clean:
 	$(MAKE) -C loader clean
