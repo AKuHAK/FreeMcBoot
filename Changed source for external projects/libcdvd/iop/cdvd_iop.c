@@ -298,7 +298,7 @@ void CDVD_init(struct fileio_driver *driver)
     printf("by A.Lee (aka Hiryu) & Nicholas Van Veen (aka Sjeep)\n");
     printf("CDVD: Initializing '%s' file driver.\n", driver->device);
 
-    CdInit(0);
+    sceCdInit(SCECdINIT);
 
     memset(fd_table, 0, sizeof(fd_table));
     memset(fd_used, 0, 16 * 4);

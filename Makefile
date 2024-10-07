@@ -218,5 +218,5 @@ elf_loader.s:
 	bin2s elf_loader/elf_loader.elf elf_loader.s elf_loader
 
 
-include Makefile.pref
-include Makefile.eeglobal
+include $(PS2SDK)/samples/Makefile.pref
+include $(PS2SDK)/samples/Makefile.eeglobal

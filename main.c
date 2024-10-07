@@ -676,9 +676,8 @@ void load_Cd_modules(void)
 
     // SifLoadModule("rom0:CDVDFSV", 0, NULL);
     // SifLoadModule("rom0:CDVDMAN", 0, NULL);
+    sceCdInit(SCECdINoD);
     SifExecModuleBuffer(&cdvd_irx, size_cdvd_irx, 0, NULL, &ret);
-    cdInit(CDVD_INIT_INIT);
-    CDVD_Init();
 
     i = 0x10000;
     while (i--)
@@ -780,44 +779,56 @@ void clear_mcTable(mcTable *mcT) // Clear up mcTable struct
 
 //----- From uLE -----------------------------------------------------------------------------------------------------
 
-int readMASS(const char *path, FILEINFO *info, int max) // read a dir on mass: and fill info struct
+int readMASS(const char *path, FILEINFO *info, int max) // read a dir and fill info struct
 {
-    fio_dirent_t record;
-    int n = 0, dd = -1;
+    struct dirent *entry;
+    struct stat st;
+    int n   = 0;
+    DIR *dd = NULL;
 
-    if ((dd = fioDopen(path)) < 0)
+    if ((dd = opendir(path)) == NULL)
         goto exit; // exit if error opening directory
-    while (fioDread(dd, &record) > 0)
-    {
-        if ((FIO_SO_ISDIR(record.stat.mode)) && (!strcmp(record.name, ".") || !strcmp(record.name, "..")))
-            continue; // Skip entry if pseudo-folder "." or ".."
 
-        strcpy(info[n].name, record.name);
+    while ((entry = readdir(dd)) != NULL)
+    {
+        // Skip pseudo-folders "." and ".."
+        if ((entry->d_type == DT_DIR) && (!strcmp(entry->d_name, ".") || !strcmp(entry->d_name, "..")))
+            continue;
+
+        // Build full path to file/directory
+        char fullpath[1024];
+        snprintf(fullpath, sizeof(fullpath), "%s/%s", path, entry->d_name);
+
+        if (stat(fullpath, &st) == -1)
+            continue; // Skip if we cannot stat the entry
+
+        strcpy(info[n].name, entry->d_name);
         clear_mcTable(&info[n].stats);
-        if (FIO_SO_ISDIR(record.stat.mode))
+
+        if (S_ISDIR(st.st_mode))
         {
             info[n].stats.attrFile = MC_ATTR_norm_folder;
         }
-        else if (FIO_SO_ISREG(record.stat.mode))
+        else if (S_ISREG(st.st_mode))
         {
             info[n].stats.attrFile     = MC_ATTR_norm_file;
-            info[n].stats.fileSizeByte = record.stat.size;
+            info[n].stats.fileSizeByte = st.st_size;
         }
         else
             continue; // Skip entry which is neither a file nor a folder
+
         strncpy(info[n].stats.name, info[n].name, 32);
-        memcpy((void *)&info[n].stats._create, record.stat.ctime, 8);
-        memcpy((void *)&info[n].stats._modify, record.stat.mtime, 8);
+        info[n].stats._create = st.st_ctime; // Creation time
+        info[n].stats._modify = st.st_mtime; // Modification time
         n++;
         if (n == max)
             break;
-    } // ends while
-    size_valid = 1;
-    time_valid = 1;
+    }
 
 exit:
-    if (dd >= 0)
-        fioDclose(dd); // Close directory if opened above
+    if (dd != NULL)
+        closedir(dd); // Close directory if opened above
+
     return n;
 }
 
@@ -859,38 +870,62 @@ int readMC(const char *path, FILEINFO *info, int max) // read a dir on mc: and f
 
 int readCD(const char *path, FILEINFO *info, int max)
 {
-    static struct TocEntry TocEntryList[MAX_ENTRY];
-    char dir[MAX_PATH];
-    int i, j, n;
+    iox_dirent_t record;
+    int n = 0, dd = -1;
+    u64 wait_start;
 
-
-    strcpy(dir, &path[5]);
-    CDVD_FlushCache();
-    n = CDVD_GetDir(dir, NULL, CDVD_GET_FILES_AND_DIRS, TocEntryList, MAX_ENTRY, dir);
-
-    for (i = j = 0; i < n; i++)
+    if (sceCdGetDiskType() <= SCECdUNKNOWN)
     {
-        if (TocEntryList[i].fileProperties & 0x02 &&
-            (!strcmp(TocEntryList[i].filename, ".") ||
-             !strcmp(TocEntryList[i].filename, "..")))
-            continue; // Skip pseudopaths "." and ".."
-        strcpy(info[j].name, TocEntryList[i].filename);
-        clear_mcTable(&info[j].stats);
-        if (TocEntryList[i].fileProperties & 0x02)
+        wait_start = Timer();
+        while ((Timer() < wait_start + 500) && !uLE_cdDiscValid())
         {
-            info[j].stats.attrFile = MC_ATTR_norm_folder;
+            if (cdmode == SCECdNODISC)
+                return 0;
         }
-        else
+        if (cdmode == SCECdNODISC)
+            return 0;
+        if ((cdmode < SCECdPSCD) || (cdmode > SCECdPS2DVD))
         {
-            info[j].stats.attrFile     = MC_ATTR_norm_file;
-            info[j].stats.fileSizeByte = TocEntryList[i].fileSize;
+            uLE_cdStop();
+            return 0;
         }
-        j++;
     }
 
+    if ((dd = fileXioDopen(path)) < 0)
+        goto exit; // exit if error opening directory
+    while (fileXioDread(dd, &record) > 0)
+    {
+        if ((FIO_S_ISDIR(record.stat.mode)) && (!strcmp(record.name, ".") || !strcmp(record.name, "..")))
+            continue; // Skip entry if pseudo-folder "." or ".."
+
+        strcpy(info[n].name, record.name);
+        clear_mcTable(&info[n].stats);
+        if (FIO_S_ISDIR(record.stat.mode))
+        {
+            info[n].stats.AttrFile = MC_ATTR_norm_folder;
+        }
+        else if (FIO_S_ISREG(record.stat.mode))
+        {
+            info[n].stats.AttrFile     = MC_ATTR_norm_file;
+            info[n].stats.FileSizeByte = record.stat.size;
+            info[n].stats.Reserve2     = 0;
+        }
+        else
+            continue; // Skip entry which is neither a file nor a folder
+        memcpy((char *)info[n].stats.EntryName, info[n].name, 32);
+        info[n].stats.EntryName[sizeof(info[n].stats.EntryName) - 1] = 0;
+        memcpy((void *)&info[n].stats._Create, record.stat.ctime, 8);
+        memcpy((void *)&info[n].stats._Modify, record.stat.mtime, 8);
+        n++;
+        if (n == max)
+            break;
+    } // ends while
     size_valid = 1;
 
-    return j;
+exit:
+    if (dd >= 0)
+        fileXioDclose(dd); // Close directory if opened above
+    return n;
 }
 //----- From uLE ------------------------------------------------------------------------------------------------------
 

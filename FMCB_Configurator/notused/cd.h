@@ -24,7 +24,6 @@ typedef enum {
 	CDVD_TYPE_ILLEGAL,			// Illegal disk type
 } CdvdDiscType_t;
 
-s32 cdInit(s32);
 CdvdDiscType_t cdGetDiscType(void);
 
 #endif

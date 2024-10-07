@@ -553,7 +553,7 @@ void loadSkinBrowser(void)
             else
                 sprintf(c, "mc%d:/SYS-CONF", CheckMC());
 
-            if((fd=fioDopen(c)) >= 0){
+            if((fd=opendir(c)) >= 0){
                 fioDclose(fd);
                 char strtmp[MAX_PATH] = "/";
                 strcat(c, strcat(strtmp, CNF));
@@ -567,7 +567,7 @@ void loadSkinBrowser(void)
     ret = genFixPath(c, cnf_path);
     if((ret < 0) || ((fd=genOpen(cnf_path,O_CREAT|O_WRONLY|O_TRUNC)) < 0)){
         sprintf(c, "mc%d:/SYS-CONF", CheckMC());
-        if((fd=fioDopen(c)) >= 0){
+        if((fd=opendir(c)) >= 0){
             fioDclose(fd);
             char strtmp[MAX_PATH] = "/";
             strcat(c, strcat(strtmp, CNF));

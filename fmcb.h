@@ -42,7 +42,7 @@
 #include <dmaKit.h>
 #include <libmc.h>
 #include <libcdvd.h>
-#include <cdvd_rpc.h>
+// #include <cdvd_rpc.h>
 #include <fileio.h>
 #include <fileXio_rpc.h>
 #include <libpad.h>

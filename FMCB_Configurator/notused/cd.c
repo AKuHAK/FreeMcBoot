@@ -29,43 +29,6 @@ s32 cdCheckSCmd(s32 cur_cmd);
 s32 cdSyncS(s32 mode);
 void cdSemaExit(void);
 
-s32 cdInit(s32 mode)
-{
-	s32 i;
-
-	if (cdSyncS(1))
-		return 0;
-	SifInitRpc(0);
-	cdThreadId = GetThreadId();
-	bindSearchFile = -1;
-	bindNCmd = -1;
-	bindSCmd = -1;
-	bindDiskReady = -1;
-	bindInit = -1;
-
-	while (1) {
-		if (SifBindRpc(&clientInit, CD_SERVER_INIT, 0) >= 0)
-			if (clientInit.server != 0) break;
-		i = 0x10000;
-		while (i--);
-	}
-
-	bindInit = 0;
-	initMode = mode;
-	SifWriteBackDCache(&initMode, 4);
-	if (SifCallRpc(&clientInit, 0, 0, &initMode, 4, 0, 0, 0, 0) < 0)
-		return 0;
-	if (mode == CDVD_INIT_EXIT) {
-		cdSemaExit();
-		nCmdSemaId = -1;
-		sCmdSemaId = -1;
-		callbackSemaId = -1;
-	} else {
-		cdSemaInit();
-	}
-	return 1;
-}
-
 void cdSemaExit(void)
 {
 	if (callbackThreadId) {

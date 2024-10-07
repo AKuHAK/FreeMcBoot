@@ -828,7 +828,7 @@ int genDopen(char *path)
         fd = fileXioDopen(tmp);
         io = 3;
     }else{*/
-    fd = fioDopen(path);
+    fd = opendir(path);
     io = 2;
     //    }
     if (fd < 0)
@@ -985,14 +985,14 @@ int genDclose(int fd)
 //--------------------------------------------------------------
 int readMASS(const char *path, FILEINFO *info, int max)
 {
-    fio_dirent_t record;
+    dirent record;
     int n = 0, dd = -1;
 
     loadUsbModules();
 
-    if ((dd = fioDopen(path)) < 0)
+    if ((dd = opendir(path)) < 0)
         goto exit; // exit if error opening directory
-    while (fioDread(dd, &record) > 0)
+    while (readdir(dd, &record) > 0)
     {
         if ((FIO_SO_ISDIR(record.stat.mode)) && (!strcmp(record.name, ".") || !strcmp(record.name, "..")))
             continue; // Skip entry if pseudo-folder "." or ".."
@@ -1077,7 +1077,7 @@ exit:
     }
     else
     {    host_elflist = 0;
-        if ((fd = fioDopen("host:")) >= 0)
+        if ((fd = opendir("host:")) >= 0)
             fioDclose(fd);
         else
             host_error = 1;
@@ -1087,7 +1087,7 @@ exit:
 //--------------------------------------------------------------
 /*int    readHOST(const char *path, FILEINFO *info, int max)
 {
-    fio_dirent_t hostcontent;
+    dirent hostcontent;
     int hfd, rv, size, contentptr, hostcount = 0;
     char *elflisttxt, elflistchar;
     char    host_path[MAX_PATH], host_next[MAX_PATH];
@@ -1119,7 +1119,7 @@ exit:
                 {    fioClose(hfd);
                     info[hostcount].stats.attrFile = MC_ATTR_norm_file;
                     makeFslPath(info[hostcount++].name, host_next);
-                } else if ((hfd = fioDopen(Win_path)) >= 0)
+                } else if ((hfd = opendir(Win_path)) >= 0)
                 {    fioDclose(hfd);
                     info[hostcount].stats.attrFile = MC_ATTR_norm_folder;
                     makeFslPath(info[hostcount++].name, host_next);
@@ -1138,10 +1138,10 @@ exit:
     }
     //This point is only reached if elflist.txt is NOT to be used
 
-    if ((hfd = fioDopen(makeHostPath(Win_path, host_path))) < 0)
+    if ((hfd = opendir(makeHostPath(Win_path, host_path))) < 0)
         return 0;
     strcpy(host_path, Win_path);
-    while ((rv = fioDread(hfd, &hostcontent)))
+    while ((rv = readdir(hfd, &hostcontent)))
     {    if (strcmp(hostcontent.name, ".")&&strcmp(hostcontent.name, ".."))
         {
             size_valid = 1;
@@ -1698,7 +1698,7 @@ finish:
     }else if(!strncmp(path, "mc", 2)){
         sprintf(oldPath, "%s%s", path, file->name);
         sprintf(newPath, "%s%s", path, name);
-        if((test=fioDopen(newPath))>=0){ //Does folder of same name exist ?
+        if((test=opendir(newPath))>=0){ //Does folder of same name exist ?
             fioDclose(test);
             ret = -17;
         }else if((test=fioOpen(newPath, O_RDONLY))>=0){ //Does file of same name exist ?
@@ -1727,7 +1727,7 @@ finish:
         strcat(oldPath, file->name);
         strcat(newPath, name);
         if(file->stats.attrFile & MC_ATTR_SUBDIR){ //Rename a folder ?
-            ret = (temp_fd = fioDopen(oldPath));
+            ret = (temp_fd = opendir(oldPath));
             if (temp_fd >= 0){
                 ret = fioIoctl(temp_fd, IOCTL_RENAME, (void *) newPath);
                 fioDclose(temp_fd);
@@ -1780,7 +1780,7 @@ finish:
         genLimObjName(dir, 0);
         if(!strncmp(dir, "host:/", 6))
             makeHostPath(dir+5, dir+6);
-        if((ret = fioDopen(dir)) >= 0){
+        if((ret = opendir(dir)) >= 0){
             fioDclose(ret);
             ret = -17;                    //return fileXio error code for pre-existing folder
         } else {

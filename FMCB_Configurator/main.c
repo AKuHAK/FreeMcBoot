@@ -750,8 +750,7 @@ void loadBasicModules(void)
 
     if    (!have_cdvd) {
         SifExecModuleBuffer(&cdvd_irx, size_cdvd_irx, 0, NULL, &ret);
-        cdInit(CDVD_INIT_INIT);
-        CDVD_Init();
+        sceCdInit(SCECdINIT);
         have_cdvd = 1;
     }
 }*/

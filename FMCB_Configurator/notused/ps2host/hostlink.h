@@ -182,7 +182,7 @@ typedef struct
     unsigned int cmd;
     unsigned short len;
     int retval;
-/* from io_common.h (fio_dirent_t) in ps2lib */
+/* from io_common.h (dirent) in ps2lib */
     unsigned int mode;
     unsigned int attr;
     unsigned int size;
